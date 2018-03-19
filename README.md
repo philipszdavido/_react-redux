@@ -11,10 +11,10 @@ npm i _react-redux --save
 ```
 
 ### Contributing
-1. Create an issue. First look through [the open issues](https://github.com/krissnawat/medium-clone-on-node/issues).
+1. Create an issue. First look through [the open issues](https://github.com/philipszdavido/_react-redux/issues).
 1. Clone the repository or fork it.
 
-         git clone https://github.com/krissnawat/medium-clone-on-node
+         git clone https://github.com/philipszdavido/_react-redux
 
 
 1. Create your feature branch:
@@ -31,5 +31,5 @@ npm i _react-redux --save
 
 1. Submit a pull request.
 
-- Issue Tracker: https://github.com/krissnawat/medium-clone-on-node/issues
-- Source Code: https://github.com/krissnawat/medium-clone-on-node
+- Issue Tracker: https://github.com/philipszdavido/_react-redux/issues
+- Source Code: https://github.com/philipszdavido/_react-redux
