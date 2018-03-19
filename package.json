@@ -1,12 +1,19 @@
 {
-  "name": "react-redux",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Chidume Nnamdi <kurtwanger40@gmail.com>",
-  "license": "ISC"
+    "name": "react-redux",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "rollup -c -o dist/_react-redux.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Chidume Nnamdi <kurtwanger40@gmail.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "react": "^16.2.0",
+        "rollup": "^0.57.1",
+        "rollup-plugin-commonjs": "^9.1.0",
+        "rollup-plugin-uglify": "^3.0.0"
+    }
 }

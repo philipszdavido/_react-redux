@@ -1,5 +1,5 @@
-import Provider from 'components/Provider'
-import connect from 'connect/'
+import Provider from './components/Provider'
+import { _connect } from './connect/index.js'
 
 
-export { Provider, connect }
+export { Provider, _connect }

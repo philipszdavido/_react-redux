@@ -1,5 +1,5 @@
 import React, { Component, createElement } from 'react';
-import { connect } from './../connect'
+//import { connect } from './../connect'
 
 function _w(_cmp) {
     console.log('======= nnamdi =============')
@@ -20,10 +20,12 @@ function _w(_cmp) {
  * const mapStateToProps = dispatch => {
  *  calc: dispatch => console.log()
  * }
- * @param {*} mapStateToProps 
- * @param {*} mapDispatchToDispatch 
+ * @param {*} mapstateToProps 
+ * @param {*} mapStateToDispatch 
  */
-export function _connect(mapStateToProps, mapStateToDispatch) {
+export function _connect(mapStateToProps, mapDispatchToProps) {
+    console.log(mapStateToProps, mapDispatchToProps)
+
     return function(cmp) {
         console.log(cmp)
         return _w(cmp)
