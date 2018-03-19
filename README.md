@@ -7,7 +7,7 @@ I think I will call it __Un-Official React bindings for [Redux](https://github.c
 ## Installation
 
 ```sh
-npm i _react-redux --save
+npm i react-redux-i --save
 ```
 
 ## Contributing
