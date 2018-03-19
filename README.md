@@ -2,15 +2,15 @@
 
 My own implementation of [React Redux](https://github.com/reactjs/react-redux).
 
-I think I will call it __Un-Official React bindings for Redux__.
+I think I will call it __Un-Official React bindings for [Redux](https://github.com/reactjs/redux)__.
 
-# Installation
+## Installation
 
 ```sh
 npm i _react-redux --save
 ```
 
-### Contributing
+## Contributing
 1. Create an issue. First look through [the open issues](https://github.com/philipszdavido/_react-redux/issues).
 1. Clone the repository or fork it.
 
