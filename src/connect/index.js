@@ -1,14 +1,10 @@
 import React, { Component, createElement } from 'react';
-import { connect } from './../connect'
 import PropTypes from 'prop-types'
 
 function _w(_cmp, mapStateToProps, mapDispatchToProps) {
     class W extends Component {
         constructor(props, context) {
             super(props, context)
-        }
-        static contextTypes = {
-            store: PropTypes.object.isRequired
         }
         render() {
             const { store } = this.context
@@ -29,6 +25,11 @@ function _w(_cmp, mapStateToProps, mapDispatchToProps) {
             );
         }
     }
+
+    W.contextTypes = {
+        store: PropTypes.object.isRequired
+    }
+
     return W
 }
 

@@ -8,14 +8,6 @@ class StoreProvider extends Component {
         this.store = this.props.store
     }
 
-    static contextTypes = {
-        store: PropTypes.object.isRequired
-    }
-
-    static childContextTypes = {
-        store: PropTypes.object.isRequired
-    }
-
     getChildContext() {
         const { store } = this.props
         return { store }
@@ -27,4 +19,13 @@ class StoreProvider extends Component {
         );
     }
 }
+
+StoreProvider.contextTypes = {
+    store: PropTypes.object.isRequired
+}
+
+StoreProvider.childContextTypes = {
+    store: PropTypes.object.isRequired
+}
+
 export default StoreProvider

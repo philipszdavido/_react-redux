@@ -1,89 +1,68 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-    (factory((global._ReactRedux = {}),global.react));
-}(this, (function (exports,react) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('prop-types')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'react', 'prop-types'], factory) :
+    (factory((global._ReactRedux = {}),global.react,global.PropTypes));
+}(this, (function (exports,react,PropTypes) { 'use strict';
 
     var react__default = 'default' in react ? react['default'] : react;
+    PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 
-    //import PropTypes from 'prop-types'
-    //import { storeShape, subscriptionShape } from '../utils/PropTypes'
-    //import warning from '../utils/warning'
+    class StoreProvider extends react.Component {
 
-    let didWarnAboutReceivingStore = false;
-
-    function warnAboutReceivingStore() {
-        if (didWarnAboutReceivingStore) {
-            return
+        constructor(props, ctx) {
+            super(props, ctx);
+            this.store = this.props.store;
         }
-        didWarnAboutReceivingStore = true;
 
-        warning(
-            '<Provider> does not support changing `store` on the fly. ' +
-            'It is most likely that you see this error because you updated to ' +
-            'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' +
-            'automatically. See https://github.com/reactjs/react-redux/releases/' +
-            'tag/v2.0.0 for the migration instructions.'
-        );
+        getChildContext() {
+            const { store } = this.props;
+            return { store }
+        }
+
+        render() {
+            return (
+                react.Children.only(this.props.children)
+            );
+        }
     }
 
-    function createProvider(storeKey = 'store', subKey) {
-        const subscriptionKey = subKey || `${storeKey}Subscription`;
+    StoreProvider.contextTypes = {
+        store: PropTypes.object.isRequired
+    };
 
-        class Provider extends react.Component {
-            getChildContext() {
-                return {
-                    [storeKey]: this[storeKey],
-                    [subscriptionKey]: null
-                }
-            }
+    StoreProvider.childContextTypes = {
+        store: PropTypes.object.isRequired
+    };
 
+    function _w(_cmp, mapStateToProps, mapDispatchToProps) {
+        class W extends react.Component {
             constructor(props, context) {
                 super(props, context);
-                this[storeKey] = props.store;
             }
-
             render() {
-                return react.Children.only(this.props.children)
-            }
-        }
+                const { store } = this.context;
+                let state = store.getState();
+                let dispatch = store.dispatch;
 
-        if (process.env.NODE_ENV !== 'production') {
-            Provider.prototype.componentWillReceiveProps = function(nextProps) {
-                if (this[storeKey] !== nextProps.store) {
-                    warnAboutReceivingStore();
+                let _d = mapDispatchToProps(store.dispatch);
+
+                if (typeof mapDispatchToProps == 'object') {
+                    for (var key in mapDispatchToProps) {
+                        mapDispatchToProps[key]();
+                    }
                 }
-            };
-        }
-
-        Provider.propTypes = {
-            store: storeShape.isRequired,
-            children: PropTypes.element.isRequired,
-        };
-        Provider.childContextTypes = {
-            [storeKey]: storeShape.isRequired,
-            [subscriptionKey]: subscriptionShape,
-        };
-
-        return Provider
-    }
-
-    var Provider = createProvider()
-
-    //import { connect } from './../connect'
-
-    function _w(_cmp) {
-        console.log('======= nnamdi =============');
-        console.log(_cmp);
-        console.log('======= end =============');
-        class W extends react.Component {
-            render() {
-                console.log('======= rendering =============');
+                let _s = mapStateToProps(state);
+                let _props = Object.assign(_s, _d);
                 return (
-                    react.createElement(_cmp, { nnamdi: 'nnamdi' })
+                    react.createElement(_cmp, _props)
                 );
             }
         }
+
+        W.contextTypes = {
+            store: PropTypes.object.isRequired
+        };
+
         return W
     }
 
@@ -91,19 +70,16 @@
      * const mapStateToProps = dispatch => {
      *  calc: dispatch => console.log()
      * }
-     * @param {*} mapstateToProps 
-     * @param {*} mapStateToDispatch 
+     * @param {*} mapStateToProps 
+     * @param {*} mapDispatchToProps
      */
     function _connect(mapStateToProps, mapDispatchToProps) {
-        console.log(mapStateToProps, mapDispatchToProps);
-
         return function(cmp) {
-            console.log(cmp);
-            return _w(cmp)
+            return _w(cmp, mapStateToProps, mapDispatchToProps)
         }
     }
 
-    exports.Provider = Provider;
+    exports.Provider = StoreProvider;
     exports._connect = _connect;
 
     Object.defineProperty(exports, '__esModule', { value: true });
