@@ -37,7 +37,7 @@ function _w(_cmp, mapStateToProps, mapDispatchToProps) {
  *  calc: dispatch => console.log()
  * }
  * @param {*} mapStateToProps 
- * @param {*} mapStateToProps
+ * @param {*} mapDispatchToProps
  */
 export function _connect(mapStateToProps, mapDispatchToProps) {
     return function(cmp) {
