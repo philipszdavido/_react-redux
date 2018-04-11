@@ -1,23 +1,41 @@
-import React, { Component, createElement } from 'react';
+import { Component, createElement } from 'react';
 import PropTypes from 'prop-types'
+import Subscription from './../utils/Subscription'
 
 function _w(_cmp, mapStateToProps, mapDispatchToProps) {
     class W extends Component {
         constructor(props, context) {
             super(props, context)
+            this.store = this.context['store']
+            this.state = {}
+            this.initSubscription()
         }
+        componentDidMount() {
+            this.subscription.trySubscribe()
+        }
+        componentWillUnmount() {
+            this.subscription = null
+        }
+
+        initSubscription() {
+            this.subscription = new Subscription(this.store, this.stateChange.bind(this))
+        }
+
+        stateChange() {
+            this.setState({})
+        }
+
         render() {
-            const { store } = this.context
-            let state = store.getState()
-            let dispatch = store.dispatch;
+            let state = this.store.getState()
+            let dispatch = this.store.dispatch;
 
-            let _d = mapDispatchToProps(store.dispatch)
+            let _d = mapDispatchToProps(this.store.dispatch)
 
-            if (typeof mapDispatchToProps == 'object') {
+            /*if (typeof mapDispatchToProps == 'object') {
                 for (var key in mapDispatchToProps) {
                     mapDispatchToProps[key]()
                 }
-            }
+            }*/
             let _s = mapStateToProps(state)
             let _props = Object.assign(_s, _d)
             return (
@@ -25,11 +43,9 @@ function _w(_cmp, mapStateToProps, mapDispatchToProps) {
             );
         }
     }
-
     W.contextTypes = {
         store: PropTypes.object.isRequired
     }
-
     return W
 }
 

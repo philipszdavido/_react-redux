@@ -4,7 +4,6 @@
     (factory((global._ReactRedux = {}),global.react,global.PropTypes));
 }(this, (function (exports,react,PropTypes) { 'use strict';
 
-    var react__default = 'default' in react ? react['default'] : react;
     PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 
     class StoreProvider extends react.Component {
@@ -34,23 +33,51 @@
         store: PropTypes.object.isRequired
     };
 
+    class Subscription {
+        constructor(store, stateChange) {
+            this.store = store;
+            this.stateChange = stateChange;
+        }
+
+        trySubscribe() {
+            this.store.subscribe(this.stateChange);
+        }
+    }
+
     function _w(_cmp, mapStateToProps, mapDispatchToProps) {
         class W extends react.Component {
             constructor(props, context) {
                 super(props, context);
+                this.store = this.context['store'];
+                this.state = {};
+                this.initSubscription();
             }
+            componentDidMount() {
+                this.subscription.trySubscribe();
+            }
+            componentWillUnmount() {
+                this.subscription = null;
+            }
+
+            initSubscription() {
+                this.subscription = new Subscription(this.store, this.stateChange.bind(this));
+            }
+
+            stateChange() {
+                this.setState({});
+            }
+
             render() {
-                const { store } = this.context;
-                let state = store.getState();
-                let dispatch = store.dispatch;
+                let state = this.store.getState();
+                let dispatch = this.store.dispatch;
 
-                let _d = mapDispatchToProps(store.dispatch);
+                let _d = mapDispatchToProps(this.store.dispatch);
 
-                if (typeof mapDispatchToProps == 'object') {
+                /*if (typeof mapDispatchToProps == 'object') {
                     for (var key in mapDispatchToProps) {
-                        mapDispatchToProps[key]();
+                        mapDispatchToProps[key]()
                     }
-                }
+                }*/
                 let _s = mapStateToProps(state);
                 let _props = Object.assign(_s, _d);
                 return (
@@ -58,11 +85,9 @@
                 );
             }
         }
-
         W.contextTypes = {
             store: PropTypes.object.isRequired
         };
-
         return W
     }
 
