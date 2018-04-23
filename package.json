@@ -1,6 +1,6 @@
 {
-    "name": "react-redux-i",
-    "version": "0.0.1",
+    "name": "@chidumennamdi/react-redux",
+    "version": "0.0.2",
     "description": "",
     "main": "src/index.js",
     "scripts": {
