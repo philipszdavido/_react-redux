@@ -2,7 +2,7 @@
     "name": "@chidumennamdi/react-redux",
     "version": "0.0.2",
     "description": "",
-    "main": "src/index.js",
+    "main": "dist/_react-redux.js",
     "scripts": {
         "build": "rollup -c -o dist/_react-redux.js",
         "push": "bash ./tools/push.sh",
